@@ -1,0 +1,17 @@
+Assistance with initial boilerplate was provided by Claude.ai. Here is my chat so far:
+
+    https://claude.ai/chat/838be6dc-5113-4b7c-bf8b-3b53810e33a0
+
+To run the automated tests, run this:
+
+    scripts/test.sh
+
+To manually browse the calculator, run this:
+
+    npm run serve
+
+And then go to here in your web browser:
+
+    http://localhost:8080/calculator.html
+
+
