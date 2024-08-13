@@ -1,22 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Calculator</h1>
     <div id="result"></div>
 
     <script type="module">
-        import { add } from './dist/functions.js';
+      import { add } from "./dist/functions.js";
 
-        // Example usage of the add function
-        document.getElementById('result').textContent = `2 + 3 = ${add(2, 3)}`;
+      // Example usage of the add function
+      document.getElementById("result").textContent = `2 + 3 = ${add(2, 3)}`;
 
-        // Make add function available globally for console use
-        window.add = add;
+      // Make add function available globally for console use
+      window.add = add;
     </script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,13 @@
+{
+  "ignores": [
+    "@commitlint/cli",
+    "@commitlint/config-conventional",
+    "@types/eslint__js",
+    "@types/eslint-config-prettier",
+    "@types/jest",
+    "@types/node",
+    "ts-jest",
+    "@eslint/js",
+    "@typescript-eslint/parser"
+  ]
+}

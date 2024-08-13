@@ -1,3 +1,9 @@
 dist/
 node_modules/
 old/
+coverage/
+.secrets/
+sonarqube_data/
+test-results/
+playwright-report/
+tsconfig.tsbuildinfo

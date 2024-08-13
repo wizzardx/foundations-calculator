@@ -1,0 +1,24 @@
+Here's how to generate a token:
+
+1. Access SonarQube:
+   Open your web browser and go to `http://localhost:9000`.
+
+2. Log in:
+   Use your admin credentials to log in. If this is your first time, the default credentials are:
+   - Username: admin
+   - Password: admin
+   (You'll be prompted to change this password upon first login)
+
+3. Go to User Settings:
+   Click on your profile icon in the top-right corner of the page, then select "My Account" from the dropdown menu.
+
+4. Navigate to Security tab:
+   In your account page, you'll see several tabs. Click on the "Security" tab.
+
+5. Generate Token:
+   - In the "Tokens" section, you'll see a form to generate a new token.
+   - Enter a name for your token (e.g., "Local Scanner Token").
+   - Choose an expiration date if desired, or leave it as "No expiration" for a permanent token.
+   - Click on the "Generate" button.
+
+Remember, this token acts like a password, so keep it secure and don't share it publicly. If you suspect the token has been compromised, you can always revoke it from the same Security tab and generate a new one.
