@@ -53,3 +53,20 @@ export function subtract(a: number, b: number): number {
 export function multiply(a: number, b: number): number {
   return a * b;
 }
+
+/**
+ * Divide one number by another.
+ *
+ * @param {number} a - The number to be dvided.
+ * @param {number} b - The number to be divided by.
+ * @returns {number} - The result of dividing a by b.
+ *
+ * @example
+ * ```ts
+ * divide(99, 3)
+ * // => 33
+ * ```
+ */
+export function divide(a: number, b: number): number {
+  return a / b;
+}

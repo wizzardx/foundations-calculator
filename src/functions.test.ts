@@ -1,5 +1,5 @@
 import { runDocTests } from "./custom-doctest.js";
-import { add, subtract, multiply } from "./functions.js";
+import { add, subtract, multiply, divide } from "./functions.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -40,5 +40,15 @@ describe("multiply function", () => {
 
   test("multiplying -5 by 10 returns -50", () => {
     expect(multiply(-5, 10)).toBe(-50);
+  });
+});
+
+describe("divide function", () => {
+  test("dividing 10 by 2 returns 5", () => {
+    expect(divide(10, 2)).toBe(5);
+  });
+
+  test("dividing 6 by 3 returns 2", () => {
+    expect(divide(6, 3)).toBe(2);
   });
 });
