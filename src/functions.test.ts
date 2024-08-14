@@ -1,4 +1,17 @@
-import { add, subtract, multiply } from "./functions";
+import { runDocTests } from "./custom-doctest.js";
+import { add, subtract, multiply } from "./functions.js";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+describe("functions.ts Doctests", () => {
+  it("should pass all JSDoc examples", async () => {
+    const absolutePath = path.resolve(__dirname, "functions.ts");
+    await expect(runDocTests(absolutePath)).resolves.not.toThrow();
+  });
+});
 
 describe("add function", () => {
   test("adding 1 and 2 returns 3", () => {
