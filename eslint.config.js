@@ -2,12 +2,14 @@ import js from "@eslint/js";
 import * as tseslint from "typescript-eslint";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 import eslintPluginJest from "eslint-plugin-jest";
+import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
     files: ["**/*.ts", "**/*.tsx"],
+    ignores: ["**/*.test.ts", "**/*.spec.ts"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -16,8 +18,11 @@ export default [
     },
     plugins: {
       "@typescript-eslint": tseslint.plugin,
+      jsdoc: eslintPluginJsdoc,
+      prettier: eslintPluginPrettier,
     },
     rules: {
+      // TypeScript-specific rules
       "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": [
@@ -27,14 +32,55 @@ export default [
       "@typescript-eslint/strict-boolean-expressions": "error",
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-misused-promises": "error",
-    },
-  },
-  {
-    files: ["**/*.js", "**/*.jsx", "**/*.cjs", "**/*.mjs"],
-    plugins: {
-      prettier: eslintPluginPrettier,
-    },
-    rules: {
+      "@typescript-eslint/explicit-module-boundary-types": "error",
+      "@typescript-eslint/typedef": [
+        "error",
+        {
+          arrowParameter: true,
+          variableDeclaration: true,
+        },
+      ],
+
+      // JSDoc rules
+      "jsdoc/require-jsdoc": [
+        "error",
+        {
+          require: {
+            FunctionDeclaration: true,
+            MethodDefinition: true,
+            ClassDeclaration: true,
+            ArrowFunctionExpression: true,
+            FunctionExpression: true,
+          },
+        },
+      ],
+      "jsdoc/require-description": "error",
+      "jsdoc/require-param": "error",
+      "jsdoc/require-param-description": "error",
+      "jsdoc/require-param-type": "error",
+      "jsdoc/require-returns": "error",
+      "jsdoc/require-returns-description": "error",
+      "jsdoc/require-returns-type": "error",
+      "jsdoc/valid-types": "error",
+      "jsdoc/check-param-names": "error",
+      "jsdoc/check-tag-names": "error",
+      "jsdoc/check-types": "error",
+      "jsdoc/no-undefined-types": "error",
+      "jsdoc/require-description-complete-sentence": "error",
+      "jsdoc/require-example": "warn",
+      "jsdoc/require-file-overview": [
+        "error",
+        {
+          tags: {
+            description: {
+              mustExist: true,
+              preventDuplicates: true,
+            },
+          },
+        },
+      ],
+
+      // General code style rules
       "prettier/prettier": "error",
       "no-console": "error",
       eqeqeq: ["error", "always"],
@@ -51,12 +97,18 @@ export default [
     },
   },
   {
-    files: ["**/*.test.ts", "**/*.test.js", "**/*.spec.ts", "**/*.spec.js"],
+    files: ["**/*.test.ts", "**/*.spec.ts"],
     plugins: {
       jest: eslintPluginJest,
     },
     rules: {
       ...eslintPluginJest.configs.recommended.rules,
+      // Explicitly disable file overview requirement for test files
+      "jsdoc/require-file-overview": "off",
+      // Optionally, you can disable other JSDoc requirements for test files
+      "jsdoc/require-jsdoc": "off",
+      "jsdoc/require-param": "off",
+      "jsdoc/require-returns": "off",
     },
   },
 ];
