@@ -1,21 +1,24 @@
 {
   "name": "top-foundations-calculator",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.16.0"
+  },
   "type": "module",
   "scripts": {
     "build": "tsc",
     "test": "node --experimental-vm-modules --require=./suppress-experimental-warnings.cjs node_modules/jest/bin/jest.js --coverage --config=jest.config.js",
-    "test:unit": "npm run test",
+    "test:unit": "pnpm run test",
     "test:e2e": "playwright test",
     "serve": "http-server",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "security-check": "npm audit --audit-level=moderate",
+    "security-check": "pnpm audit --audit-level=moderate",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "check-deps": "depcheck",
-    "update-deps": "ncu -u && npm install",
-    "ci": "npm run lint && npm run type-check && npm run test && npm run security-check",
+    "update-deps": "ncu -u && pnpm install",
+    "ci": "pnpm run lint && pnpm run type-check && pnpm run test && pnpm run security-check",
     "prepare": "husky"
   },
   "devDependencies": {

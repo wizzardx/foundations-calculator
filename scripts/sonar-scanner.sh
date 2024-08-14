@@ -16,7 +16,7 @@ fi
 SONAR_TOKEN=$(cat .secrets/.sonar_token)
 
 # Run tests and generate coverage report
-npm test
+pnpm test
 
 # Run SonarQube scanner
 docker run \

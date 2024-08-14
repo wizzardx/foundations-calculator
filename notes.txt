@@ -8,7 +8,7 @@ To run the automated tests, run this:
 
 To manually browse the calculator, run this:
 
-    npm run serve
+    pnpm run serve
 
 And then go to here in your web browser:
 
