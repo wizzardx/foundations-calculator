@@ -3,6 +3,22 @@
  * These functions are used in the calculator application.
  */
 
+type NumericOperator = "plus" | "minus" | "divide" | "multiply";
+
+declare global {
+  // eslint-disable-next-line no-var
+  var firstNumber: number | undefined;
+
+  // eslint-disable-next-line no-var
+  var operator: NumericOperator | undefined;
+
+  // eslint-disable-next-line no-var
+  var secondNumber: number | undefined;
+}
+globalThis.firstNumber = undefined;
+globalThis.operator = undefined;
+globalThis.secondNumber = undefined;
+
 /**
  * Adds two numbers together.
  *

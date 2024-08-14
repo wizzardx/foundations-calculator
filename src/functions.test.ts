@@ -52,3 +52,17 @@ describe("divide function", () => {
     expect(divide(6, 3)).toBe(2);
   });
 });
+
+describe("Expected global variables for calculator", () => {
+  test("first number global exists", () => {
+    expect(firstNumber).toBe(undefined);
+  });
+
+  test("operator global exists", () => {
+    expect(operator).toBe(undefined);
+  });
+
+  test("second number global exists", () => {
+    expect(secondNumber).toBe(undefined);
+  });
+});
