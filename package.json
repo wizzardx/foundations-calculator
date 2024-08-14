@@ -12,7 +12,7 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "security-check": "npm audit --audit-level=moderate",
     "format": "prettier --write .",
-    "prepare": "husky install",
+    "prepare": "husky init",
     "type-check": "tsc --noEmit",
     "check-deps": "depcheck",
     "update-deps": "ncu -u && npm install",
