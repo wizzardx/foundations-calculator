@@ -14,6 +14,7 @@ describe("subtract function", () => {
   test("subtracting 5 from 7 returns 2", () => {
     expect(subtract(7, 5)).toBe(2);
   });
+
   test("subtracting 7 from 2 returns -5", () => {
     expect(subtract(2, 7)).toBe(-5);
   });
