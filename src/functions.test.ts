@@ -1,5 +1,12 @@
 import { runDocTests } from "./custom-doctest.js";
-import { add, subtract, multiply, divide } from "./functions.js";
+import {
+  add,
+  subtract,
+  multiply,
+  divide,
+  operatorFunc,
+  getOpFunc,
+} from "./functions.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -64,5 +71,33 @@ describe("Expected global variables for calculator", () => {
 
   test("second number global exists", () => {
     expect(secondNumber).toBe(undefined);
+  });
+});
+
+describe("operate function", () => {
+  test("dividing 10 by 2 returns 5", () => {
+    expect(operatorFunc("divide", 10, 2)).toBe(5);
+  });
+
+  test("adding 7 to 5 returns 12", () => {
+    expect(operatorFunc("plus", 7, 5)).toBe(12);
+  });
+});
+
+describe("getOpFunc", () => {
+  test("Passing in 'plus' gets the 'add' function", () => {
+    expect(getOpFunc("plus")).toBe(add);
+  });
+
+  test("Passing in 'minus' gets the 'subtract' function", () => {
+    expect(getOpFunc("minus")).toBe(subtract);
+  });
+
+  test("Passing in 'multiply' gets the 'multiply' function", () => {
+    expect(getOpFunc("multiply")).toBe(multiply);
+  });
+
+  test("Passing in 'divide' gets the 'divide' function", () => {
+    expect(getOpFunc("divide")).toBe(divide);
   });
 });

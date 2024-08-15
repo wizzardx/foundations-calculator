@@ -86,3 +86,71 @@ export function multiply(a: number, b: number): number {
 export function divide(a: number, b: number): number {
   return a / b;
 }
+
+/**
+ * Assist with exhaustiveness checking in TypeScript code.
+ *
+ * @param {never} x - A value that should never be seen in the caller.
+ *
+ * @example
+ * ```ts
+ * assertUnreachable("abcdefg")
+ * // => Throws Error: Unexpected object: abcdefg
+ * ```
+ */
+// istanbul ignore next
+export function assertUnreachable(x: never): never {
+  throw new Error(`Unexpected object: ${x}`);
+}
+
+/**
+ * Returns the function to be used for performing a specified numeric operation.
+ *
+ * @param {NumericOperator} op - Operator that we want a handler function for.
+ * @returns {(a: number, b: number) => number} - Function to perform the operation.
+ *
+ * @example
+ * ```ts
+ * getOpFunc("minus")(10, 5) === 5
+ * // => true
+ * ```
+ */
+export function getOpFunc(
+  op: NumericOperator,
+): (a: number, b: number) => number {
+  switch (op) {
+    case "plus":
+      return add;
+    case "minus":
+      return subtract;
+    case "multiply":
+      return multiply;
+    case "divide":
+      return divide;
+    // istanbul ignore next
+    default:
+      return assertUnreachable(op);
+  }
+}
+
+/**
+ * Perform numeric operation against two numbers and return the result.
+ *
+ * @param {NumericOperator} op - Numeric operation to be performed.
+ * @param {number} num1 - First number to use in the numeric operation.
+ * @param {number} num2 - Second number to use in the numeric operation.
+ * @returns {number} - Result of the numeric operation.
+ * @example
+ * ```ts
+ * operatorFunc("plus", 1, 3) === 4
+ * // => true
+ * ```
+ */
+export function operatorFunc(
+  op: NumericOperator,
+  num1: number,
+  num2: number,
+): number {
+  const opFunc: (a: number, b: number) => number = getOpFunc(op);
+  return opFunc(num1, num2);
+}
