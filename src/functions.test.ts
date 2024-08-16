@@ -85,7 +85,7 @@ describe("operate function", () => {
   });
 });
 
-describe("getOpFunc", () => {
+describe("getOpFunc function", () => {
   test("Passing in 'plus' gets the 'add' function", () => {
     expect(getOpFunc("plus")).toBe(add);
   });

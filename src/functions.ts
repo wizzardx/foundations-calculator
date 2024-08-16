@@ -111,8 +111,8 @@ export function assertUnreachable(x: never): never {
  *
  * @example
  * ```ts
- * getOpFunc("minus")(10, 5) === 5
- * // => true
+ * getOpFunc("minus")(10, 5)
+ * // => 5
  * ```
  */
 export function getOpFunc(
@@ -142,8 +142,8 @@ export function getOpFunc(
  * @returns {number} - Result of the numeric operation.
  * @example
  * ```ts
- * operatorFunc("plus", 1, 3) === 4
- * // => true
+ * operatorFunc("plus", 1, 3)
+ * // => 4
  * ```
  */
 export function operatorFunc(
