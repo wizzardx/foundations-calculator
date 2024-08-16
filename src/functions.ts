@@ -154,3 +154,17 @@ export function operatorFunc(
   const opFunc: (a: number, b: number) => number = getOpFunc(op);
   return opFunc(num1, num2);
 }
+
+/**
+ * Return true if `s` is an integer digit, otherwise false.
+ * @param {unknown} s - The value to be checked.
+ * @returns {boolean} - True if `s` was a digit, otherwise `false`.
+ * @example
+ * ```ts
+ * isDigit("1")
+ * // => true
+ * ```
+ */
+export function isDigit(s: unknown): boolean {
+  return typeof s === "string" && /^\d$/.test(s);
+}

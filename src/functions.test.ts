@@ -6,6 +6,7 @@ import {
   divide,
   operatorFunc,
   getOpFunc,
+  isDigit,
 } from "./functions.js";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -99,5 +100,31 @@ describe("getOpFunc", () => {
 
   test("Passing in 'divide' gets the 'divide' function", () => {
     expect(getOpFunc("divide")).toBe(divide);
+  });
+});
+
+describe("isDigit function", () => {
+  test("an empty string is not a digit", () => {
+    expect(isDigit("")).toBe(false);
+  });
+
+  test("A '1' string is a digit", () => {
+    expect(isDigit("1")).toBe(true);
+  });
+
+  test("A '3' string is a digit", () => {
+    expect(isDigit("3")).toBe(true);
+  });
+
+  test("A 'S' string is a digit", () => {
+    expect(isDigit("S")).toBe(false);
+  });
+
+  test("A '1234' string is not a digit", () => {
+    expect(isDigit("1234")).toBe(false);
+  });
+
+  test("An undefined value is not a digit", () => {
+    expect(isDigit(undefined)).toBe(false);
   });
 });

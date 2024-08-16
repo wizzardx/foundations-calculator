@@ -8,7 +8,7 @@
   <body>
     <h1>Calculator</h1>
 
-    <div id="answer-display"><strong>Answer:</strong>12345678</div>
+    <strong>Answer:</strong><span id="answer">12345678</span>
 
     <div id="buttons">
       <div class="row">
@@ -38,18 +38,21 @@
       </div>
     </div>
 
-    <div id="result"></div>
+    <script type="module" defer>
+      import { isDigit } from "./dist/functions.js";
 
-    <!--
-    <script type="module">
-      import { add } from "./dist/functions.js";
+      let displayValue = undefined;
+      const answerSpan = document.querySelector("#answer");
 
-      // Example usage of the add function
-      document.getElementById("result").textContent = `2 + 3 = ${add(2, 3)}`;
-
-      // Make add function available globally for console use
-      window.add = add;
+      buttons.addEventListener("click", (event) => {
+        if (event.target.tagName === "BUTTON") {
+          const text = event.target.innerText;
+          if (isDigit(text)) {
+            displayValue = text;
+            answerSpan.innerText = text;
+          }
+        }
+      });
     </script>
-    -->
   </body>
 </html>
