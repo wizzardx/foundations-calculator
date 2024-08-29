@@ -1,5 +1,4 @@
 import js from "@eslint/js";
-import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 import * as tseslint from "typescript-eslint";
@@ -97,12 +96,8 @@ export default [
     },
   },
   {
-    files: ["**/*.test.ts", "**/*.spec.ts", "jest.config.ts"],
-    plugins: {
-      jest: eslintPluginJest,
-    },
+    files: ["**/*.test.ts", "**/*.spec.ts", "vitest.config.ts"],
     rules: {
-      ...eslintPluginJest.configs.recommended.rules,
       // Explicitly disable file overview requirement for test files
       "jsdoc/require-file-overview": "off",
       // Optionally, you can disable other JSDoc requirements for test files

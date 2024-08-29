@@ -15,12 +15,14 @@
     "webpack-cli",
     "ts-node",
     "@awmottaz/prettier-plugin-void-html",
-    "prettier-plugin-organize-imports"
+    "prettier-plugin-organize-imports",
+    "@typescript-eslint/eslint-plugin",
+    "@vitest/coverage-v8"
   ],
   "specials": [
     "webpack",
-    "jest",
     "typescript",
-    "prettier"
+    "prettier",
+    "eslint"
   ]
 }

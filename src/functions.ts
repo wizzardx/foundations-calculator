@@ -3,6 +3,7 @@
  * These functions are used in the calculator application.
  */
 import Big from "big.js";
+import { assertUnreachable } from "./utils/assertUnreachable";
 
 const operators: readonly ["+", "-", "/", "*"] = ["+", "-", "/", "*"] as const;
 export type Operator = (typeof operators)[number];
@@ -78,20 +79,6 @@ export function divide(a: Big | "Infinity", b: Big): Big | "Infinity" {
 }
 
 /**
- * Assist with exhaustiveness checking in TypeScript code.
- *
- * @param {never} x - A value that should never be seen in the caller.
- * @throws {Error} Always throws an error with a message including the unexpected value.
- * @example
- * assertUnreachable("abcdefg")
- * // => Throws Error: Unexpected object: abcdefg
- */
-// istanbul ignore next
-export function assertUnreachable(x: never): never {
-  throw new Error(`Unexpected object: ${x}`);
-}
-
-/**
  * Returns the function to be used for performing a specified numeric operation.
  *
  * @param {Operator} op - Operator that we want a handler function for.
@@ -112,8 +99,9 @@ export function getOpFunc(
       return multiply;
     case "/":
       return divide;
-    // istanbul ignore next
+    /* v8 ignore next */
     default:
+      /* v8 ignore next */
       return assertUnreachable(op);
   }
 }
