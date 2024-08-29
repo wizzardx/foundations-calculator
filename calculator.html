@@ -8,7 +8,7 @@
   <body>
     <h1>Calculator</h1>
 
-    <strong>Answer:</strong><span id="answer">12345678</span>
+    <strong>Answer:</strong><span id="answer">0</span>
 
     <div id="buttons">
       <div class="row">
@@ -38,19 +38,26 @@
       </div>
     </div>
 
-    <script type="module" defer>
-      import { isDigit } from "./dist/functions.js";
+    <script type="module">
+      "use strict";
 
-      let displayValue = undefined;
+      import { Calculator } from "./dist/bundle.js";
+      const calculator = new Calculator();
+
+      const buttons = document.querySelector("#buttons");
       const answerSpan = document.querySelector("#answer");
+
+      function updateDisplay() {
+        answerSpan.innerText = calculator.getDisplayString();
+      }
+
+      updateDisplay();
 
       buttons.addEventListener("click", (event) => {
         if (event.target.tagName === "BUTTON") {
-          const text = event.target.innerText;
-          if (isDigit(text)) {
-            displayValue = text;
-            answerSpan.innerText = text;
-          }
+          const buttonText = event.target.innerText;
+          calculator.handleUiButtonPressed(buttonText);
+          updateDisplay();
         }
       });
     </script>

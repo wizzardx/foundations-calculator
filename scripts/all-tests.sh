@@ -1,10 +1,16 @@
 #!/bin/bash
 
+# Error checking:
 set -euo pipefail
 
-if [ ! -f node_modules/.bin/ncu ]; then
-    pnpm install --save-dev npm-check-updates
-fi
+# Display every line as it runs in this shell script:
+set -x
+
+# Tidy up auto-generated files.
+rm -rf node_modules
+rm -rf dist
+rm -rf e2e/dist
+rm -f pnpm-lock.yaml
 
 # Update packages to latest versions:
 pnpm run update-deps
@@ -20,7 +26,7 @@ pnpm run format
 pnpm run build
 pnpm run security-check
 pnpm run check-deps
-pnpm run test:unit
+pnpm run test:unit:coverage
 pnpm run test:e2e
 scripts/sonar-scanner.sh
 echo "Lints, checks and tests completed successfully."

@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-pnpm run test:watch
+pnpm run test:unit:watch

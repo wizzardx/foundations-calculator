@@ -97,7 +97,7 @@ export default [
     },
   },
   {
-    files: ["**/*.test.ts", "**/*.spec.ts"],
+    files: ["**/*.test.ts", "**/*.spec.ts", "jest.config.ts"],
     plugins: {
       jest: eslintPluginJest,
     },

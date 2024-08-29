@@ -2,12 +2,22 @@
   "ignores": [
     "@commitlint/cli",
     "@commitlint/config-conventional",
-    "@types/eslint__js",
     "@types/eslint-config-prettier",
-    "@types/jest",
-    "@types/node",
-    "ts-jest",
-    "@eslint/js",
-    "@typescript-eslint/parser"
+    "@types/eslint__js",
+    "@typescript-eslint/parser",
+    "depcheck",
+    "http-server",
+    "husky",
+    "lint-staged",
+    "nodemon",
+    "ts-loader",
+    "webpack",
+    "webpack-cli",
+    "ts-node",
+  ],
+  "specials": [
+    "webpack",
+    "jest",
+    "typescript"
   ]
 }

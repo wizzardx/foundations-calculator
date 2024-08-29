@@ -1,5 +1,6 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
-export default {
+import type { JestConfigWithTsJest } from "ts-jest";
+
+const config: JestConfigWithTsJest = {
   preset: "ts-jest/presets/default-esm",
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
@@ -30,4 +31,7 @@ export default {
     "!src/custom-doctest.ts", // Exclude custom-doctest.ts from coverage
   ],
   errorOnDeprecated: true,
+  verbose: false,
 };
+
+export default config;

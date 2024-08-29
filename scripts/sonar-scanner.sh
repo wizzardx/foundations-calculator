@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+set -x
 
 HOST_IP=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 
@@ -16,7 +17,7 @@ fi
 SONAR_TOKEN=$(cat .secrets/.sonar_token)
 
 # Run tests and generate coverage report
-pnpm test
+pnpm run test:unit:coverage
 
 # Run SonarQube scanner
 docker run \
