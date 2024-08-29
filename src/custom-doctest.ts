@@ -6,9 +6,9 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable complexity */
 
-import * as ts from "typescript";
 import * as fs from "fs";
 import * as path from "path";
+import * as ts from "typescript";
 import { fileURLToPath } from "url";
 
 const __filename: string = fileURLToPath(import.meta.url);

@@ -14,10 +14,13 @@
     "webpack",
     "webpack-cli",
     "ts-node",
+    "@awmottaz/prettier-plugin-void-html",
+    "prettier-plugin-organize-imports"
   ],
   "specials": [
     "webpack",
     "jest",
-    "typescript"
+    "typescript",
+    "prettier"
   ]
 }

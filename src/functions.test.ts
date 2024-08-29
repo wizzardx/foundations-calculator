@@ -3,24 +3,24 @@ import Big from "big.js";
 import { runDocTests } from "./custom-doctest.js";
 import {
   add,
-  assertIsSingleDigitNumber,
   assertIsNotNull,
+  assertIsSingleDigitNumber,
   Calculator,
+  decimalPlaceToMultiplier,
   divide,
   getOpFunc,
   isDigit,
+  MAX_DECIMAL_PLACES_IN_DISPLAY,
   multiply,
   notImplemented,
-  operatorFunc,
-  subtract,
   Operator,
+  operatorFunc,
   parseOperator,
-  decimalPlaceToMultiplier,
-  MAX_DECIMAL_PLACES_IN_DISPLAY,
+  subtract,
 } from "./functions.js";
 
-import { fileURLToPath } from "url";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

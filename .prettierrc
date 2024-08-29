@@ -7,6 +7,10 @@
   "endOfLine": "auto",
   "arrowParens": "always",
   "bracketSpacing": true,
-  "jsxBracketSameLine": false,
-  "quoteProps": "as-needed"
+  "bracketSameLine": false,
+  "quoteProps": "as-needed",
+  "plugins": [
+    "@awmottaz/prettier-plugin-void-html",
+    "prettier-plugin-organize-imports"
+  ]
 }

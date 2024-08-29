@@ -5,9 +5,9 @@
  * generate clickable error stacks, and handle failed requests.
  */
 
-import { SourceMapConsumer, RawSourceMap } from "source-map";
 import * as fs from "fs/promises";
 import * as path from "path";
+import { RawSourceMap, SourceMapConsumer } from "source-map";
 
 const sourceMapConsumers: Map<string, SourceMapConsumer> = new Map();
 
