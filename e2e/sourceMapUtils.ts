@@ -7,6 +7,7 @@
 
 import * as fs from "fs/promises";
 import * as path from "path";
+
 import { RawSourceMap, SourceMapConsumer } from "source-map";
 
 const sourceMapConsumers: Map<string, SourceMapConsumer> = new Map();
@@ -93,9 +94,9 @@ function resolveOriginalSource(
       path.basename(original.source),
     );
     return {
-      source: resolvedSource,
-      line: original.line ?? fallback.line,
       column: original.column ?? fallback.column,
+      line: original.line ?? fallback.line,
+      source: resolvedSource,
     };
   }
   return fallback;
@@ -122,30 +123,30 @@ async function getOriginalPositionFromSourceMap(
 ): Promise<{ source: string; line: number; column: number }> {
   if (filePathOrUrl.endsWith("/calculator.html")) {
     return {
+      column,
+      line,
       source: path.join(
         process.cwd(),
         filePathOrUrl.replace("http://localhost:8080/", ""),
       ),
-      line,
-      column,
     };
   }
 
   const consumer: SourceMapConsumer | undefined =
     await getSourceMapConsumer(filePathOrUrl);
   if (!consumer) {
-    return { source: filePathOrUrl, line, column };
+    return { column, line, source: filePathOrUrl };
   }
 
   const original: {
-    source: string | null;
-    line: number | null;
     column: number | null;
-  } = consumer.originalPositionFor({ line, column });
+    line: number | null;
+    source: string | null;
+  } = consumer.originalPositionFor({ column, line });
   return resolveOriginalSource(original, {
-    source: filePathOrUrl,
-    line,
     column,
+    line,
+    source: filePathOrUrl,
   });
 }
 

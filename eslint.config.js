@@ -1,6 +1,8 @@
 import js from "@eslint/js";
+import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginPrettier from "eslint-plugin-prettier";
+import eslintPluginSortClassMembers from "eslint-plugin-sort-class-members";
 import * as tseslint from "typescript-eslint";
 
 export default [
@@ -19,6 +21,8 @@ export default [
       "@typescript-eslint": tseslint.plugin,
       jsdoc: eslintPluginJsdoc,
       prettier: eslintPluginPrettier,
+      import: eslintPluginImport,
+      "sort-class-members": eslintPluginSortClassMembers,
     },
     rules: {
       // TypeScript-specific rules
@@ -106,6 +110,73 @@ export default [
       "max-lines-per-function": ["error", 50],
       complexity: ["error", 5],
       "max-depth": ["error", 3],
+
+      // Import ordering
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+          ],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
+      "sort-imports": [
+        "error",
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        },
+      ],
+
+      // Class member ordering
+      "sort-class-members/sort-class-members": [
+        "error",
+        {
+          order: [
+            "[static-properties]",
+            "[static-methods]",
+            "[properties]",
+            "[conventional-private-properties]",
+            "constructor",
+            "[accessor-pairs]",
+            "[methods]",
+            "[conventional-private-methods]",
+          ],
+          accessorPairPositioning: "getThenSet",
+          stopAfterFirstProblem: false,
+          groups: {
+            "static-properties": [{ type: "property", static: true }],
+            "static-methods": [{ type: "method", static: true }],
+            properties: [{ type: "property", sort: "alphabetical" }],
+            "conventional-private-properties": [
+              { type: "property", name: "/^_/", sort: "alphabetical" },
+            ],
+            methods: [{ type: "method", sort: "alphabetical" }],
+            "conventional-private-methods": [
+              { type: "method", name: "/^_/", sort: "alphabetical" },
+            ],
+            "accessor-pairs": [{ accessorPair: true, sort: "alphabetical" }],
+          },
+        },
+      ],
+
+      // Object key sorting
+      "sort-keys": ["error", "asc", { caseSensitive: false, natural: true }],
+
+      // Variable sorting
+      "sort-vars": ["error", { ignoreCase: true }],
     },
   },
   {
