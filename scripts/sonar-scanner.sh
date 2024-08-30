@@ -54,5 +54,4 @@ docker run \
     -e SONAR_HOST_URL="http://$HOST_IP:9000" \
     -e SONAR_TOKEN="$SONAR_TOKEN" \
     -v "${PWD}:/usr/src" \
-    sonarsource/sonar-scanner-cli \
-    -Dsonar.projectKey=my:project
+    sonarsource/sonar-scanner-cli
