@@ -66,7 +66,20 @@ export default [
       "jsdoc/check-types": "error",
       "jsdoc/no-undefined-types": "error",
       "jsdoc/require-description-complete-sentence": "error",
-      "jsdoc/require-example": "warn",
+      "jsdoc/require-example": [
+        "warn",
+        {
+          exemptedBy: ["private"],
+          contexts: [
+            "ExportDefaultDeclaration",
+            "ExportNamedDeclaration",
+            "TSInterfaceDeclaration",
+            "TSTypeAliasDeclaration",
+            "TSEnumDeclaration",
+            "TSModuleDeclaration",
+          ],
+        },
+      ],
       "jsdoc/require-file-overview": [
         "error",
         {

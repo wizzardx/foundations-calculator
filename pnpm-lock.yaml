@@ -98,6 +98,9 @@ importers:
       typescript-eslint:
         specifier: ^8.3.0
         version: 8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
+      vite-plugin-doctest:
+        specifier: ^1.0.0
+        version: 1.0.0(@types/node@22.5.1)(terser@5.31.6)(vitest@2.0.5(@types/node@22.5.1)(terser@5.31.6))
       vitest:
         specifier: ^2.0.5
         version: 2.0.5(@types/node@22.5.1)(terser@5.31.6)
@@ -4289,6 +4292,14 @@ packages:
     engines: { node: ^18.0.0 || >=20.0.0 }
     hasBin: true
 
+  vite-plugin-doctest@1.0.0:
+    resolution:
+      {
+        integrity: sha512-qGuup/VOwNgT29ljS5BO/UDDUOQj6jRVoFNs82+m6iofijrIxjstXWllfcUCVwk4x26r0JjqFVGeqgyrU9vTbg==,
+      }
+    peerDependencies:
+      vitest: ">=0.29.0"
+
   vite@5.4.2:
     resolution:
       {
@@ -6956,6 +6967,22 @@ snapshots:
       - stylus
       - sugarss
       - supports-color
+      - terser
+
+  vite-plugin-doctest@1.0.0(@types/node@22.5.1)(terser@5.31.6)(vitest@2.0.5(@types/node@22.5.1)(terser@5.31.6)):
+    dependencies:
+      magic-string: 0.30.11
+      typescript: 5.5.4
+      vite: 5.4.2(@types/node@22.5.1)(terser@5.31.6)
+      vitest: 2.0.5(@types/node@22.5.1)(terser@5.31.6)
+    transitivePeerDependencies:
+      - "@types/node"
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
       - terser
 
   vite@5.4.2(@types/node@22.5.1)(terser@5.31.6):

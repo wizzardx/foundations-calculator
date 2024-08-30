@@ -1,10 +1,15 @@
+import { doctest } from "vite-plugin-doctest";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     globals: true,
     environment: "node",
-    include: ["src/**/*.test.ts"],
+    include: ["src/**/*.test.ts", "src/**/*.test.ts"],
+    includeSource: [
+      "./src/**/*.[jt]s?(x)",
+      "./**/*.md", // You can disable markdown test by removing this line
+    ],
     exclude: ["e2e/**", "node_modules/**"],
     coverage: {
       provider: "v8",
@@ -21,4 +26,5 @@ export default defineConfig({
       reportsDirectory: "./coverage",
     },
   },
+  plugins: [doctest()],
 });

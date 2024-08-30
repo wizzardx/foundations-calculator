@@ -19,6 +19,7 @@
     "@typescript-eslint/eslint-plugin",
     "@vitest/coverage-v8",
     "start-server-and-test",
+    "typescript"
   ],
   "specials": [
     "webpack",

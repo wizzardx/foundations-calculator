@@ -1,6 +1,5 @@
 import Big from "big.js";
 
-import { runDocTests } from "./custom-doctest.js";
 import {
   add,
   assertIsNotNull,
@@ -18,19 +17,6 @@ import {
   parseOperator,
   subtract,
 } from "./functions.js";
-
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-describe("functions.ts Doctests", () => {
-  it("should pass all JSDoc examples", async () => {
-    const absolutePath = path.resolve(__dirname, "functions.ts");
-    await expect(runDocTests(absolutePath)).resolves.not.toThrow();
-  });
-});
 
 describe("add function", () => {
   test("adding 1 and 2 returns 3", () => {
@@ -326,7 +312,7 @@ describe("Calculator class", () => {
   });
 
   describe("pressBackspaceButton method", () => {
-    it("Fails if nextDecimalPlace has a 0 value when it should be inpossible", () => {
+    it("Fails if nextDecimalPlace has a 0 value when it should be impossible", () => {
       const calc = new Calculator();
       calc.pressKeys("123.");
       calc.unsafeSetNextDecimalPlace(0);
@@ -1167,7 +1153,7 @@ describe("Calculator class", () => {
     });
   });
 
-  it("Presses = on the calculator when the '=' UI botton is pressed", () => {
+  it("Presses = on the calculator when the '=' UI button is pressed", () => {
     const calc = new Calculator();
     calc.pressKeys("123+456=");
     calc.handleUiButtonPressed("=");

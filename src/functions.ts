@@ -17,8 +17,10 @@ export const MAX_DECIMAL_PLACES_IN_DISPLAY: number = 5;
  * @param {Big} b - The second number to add.
  * @returns {Big | "Infinity"} The sum of a and b.
  * @example
- * add(Big(5), Big(3)) // Returns Big(8)
- * add("Infinity", Big(3)) // Returns "Infinity"
+ * ```ts @import.meta.vitest
+ * expect(add(Big(5), Big(3))).toStrictEqual(Big(8))
+ * expect(add("Infinity", Big(3))).toBe("Infinity")
+ * ```
  */
 export function add(a: Big | "Infinity", b: Big): Big | "Infinity" {
   if (a === "Infinity") {
@@ -34,8 +36,10 @@ export function add(a: Big | "Infinity", b: Big): Big | "Infinity" {
  * @param {Big} b - The number to subtract.
  * @returns {Big | "Infinity"} The difference between a and b.
  * @example
- * subtract(Big(10), Big(4)) // Returns Big(6)
- * subtract("Infinity", Big(5)) // Returns "Infinity"
+ * ```ts @import.meta.vitest
+ * expect(subtract(Big(10), Big(4))).toStrictEqual(Big(6))
+ * expect(subtract("Infinity", Big(5))).toBe("Infinity")
+ * ```
  */
 export function subtract(a: Big | "Infinity", b: Big): Big | "Infinity" {
   if (a === "Infinity") {
@@ -51,8 +55,10 @@ export function subtract(a: Big | "Infinity", b: Big): Big | "Infinity" {
  * @param {Big} b - The number to be multiplied by.
  * @returns {Big | "Infinity"} The product of a and b.
  * @example
- * multiply(Big(3), Big(4)) // Returns Big(12)
- * multiply("Infinity", Big(2)) // Returns "Infinity"
+ * ```ts @import.meta.vitest
+ * expect(multiply(Big(3), Big(4))).toStrictEqual(Big(12))
+ * expect(multiply("Infinity", Big(2))).toBe("Infinity")
+ * ```
  */
 export function multiply(a: Big | "Infinity", b: Big): Big | "Infinity" {
   if (a === "Infinity") {
@@ -68,8 +74,10 @@ export function multiply(a: Big | "Infinity", b: Big): Big | "Infinity" {
  * @param {Big} b - The number to be divided by.
  * @returns {Big | "Infinity"} The result of dividing a by b.
  * @example
- * divide(Big(12), Big(3)) // Returns Big(4)
- * divide("Infinity", Big(2)) // Returns "Infinity"
+ * ```ts @import.meta.vitest
+ * expect(divide(Big(12), Big(3))).toStrictEqual(Big(4))
+ * expect(divide("Infinity", Big(2))).toBe("Infinity")
+ * ```
  */
 export function divide(a: Big | "Infinity", b: Big): Big | "Infinity" {
   if (a === "Infinity") {
@@ -84,8 +92,11 @@ export function divide(a: Big | "Infinity", b: Big): Big | "Infinity" {
  * @param {Operator} op - Operator that we want a handler function for.
  * @returns {(a: Big | "Infinity", b: Big) => Big | "Infinity"} Function to perform the operation.
  * @example
+ * ```ts @import.meta.vitest
  * const addFunc = getOpFunc("+")
- * addFunc(Big(3), Big(4)) // Returns Big(7)
+ * expect(addFunc(Big(3), Big(4))).toStrictEqual(Big(7))
+
+ * ```
  */
 export function getOpFunc(
   op: Operator,
@@ -114,10 +125,11 @@ export function getOpFunc(
  * @param {Big} num2 - Second number to use in the numeric operation.
  * @returns {Big | "Infinity"} Result of the numeric operation.
  * @example
- * operatorFunc("+", Big(5), Big(3)) // Returns Big(8)
- * operatorFunc("*", "Infinity", Big(2)) // Returns "Infinity"
- */
-export function operatorFunc(
+ * ```ts @import.meta.vitest
+ * expect(operatorFunc("+", Big(5), Big(3))).toStrictEqual(Big(8))
+ * expect(operatorFunc("*", "Infinity", Big(2))).toBe("Infinity")
+ * ```
+ */ export function operatorFunc(
   op: Operator,
   num1: Big | "Infinity",
   num2: Big,
@@ -134,8 +146,10 @@ export function operatorFunc(
  * @returns {Operator} The parsed Operator.
  * @throws {Error} If the input is not a valid Operator.
  * @example
- * parseOperator("+") // Returns "+"
- * parseOperator("x") // Throws Error: Invalid operator: x
+ * ```ts @import.meta.vitest
+ * expect(parseOperator("+")).toBe("+")
+ * expect(() => parseOperator("x")).toThrow("Invalid operator: x")
+ * ```
  */
 export function parseOperator(s: unknown): Operator {
   if (typeof s !== "string") {
@@ -155,8 +169,10 @@ export function parseOperator(s: unknown): Operator {
  * @param {string} s - The string to check.
  * @returns {boolean} True if the string is a valid Operator, false otherwise.
  * @example
- * isOperator("+") // Returns true
- * isOperator("x") // Returns false
+ * ```ts @import.meta.vitest
+ * expect(isOperator("+")).toBe(true)
+ * expect(isOperator("x")).toBe(false)
+ * ```
  */
 function isOperator(s: string): s is Operator {
   return operators.includes(s as Operator);
@@ -167,8 +183,10 @@ function isOperator(s: string): s is Operator {
  * @param {unknown} s - The value to be checked.
  * @returns {boolean} - True if `s` was a digit, otherwise `false`.
  * @example
- * isDigit("1")
- * // => true
+ * ```ts @import.meta.vitest
+ * expect(isDigit("1")).toBe(true)
+ * expect(isDigit("a")).toBe(false)
+ * ```
  */
 export function isDigit(s: unknown): boolean {
   return typeof s === "string" && /^\d$/.test(s);
@@ -180,8 +198,10 @@ export function isDigit(s: unknown): boolean {
  * @param {unknown} num - The value to check.
  * @throws {Error} If the value is not a single-digit integer.
  * @example
- * assertIsSingleDigitNumber(5) // Does not throw
- * assertIsSingleDigitNumber(10) // Throws Error: Value 10 is not a single digit integer
+ * ```ts @import.meta.vitest
+ * expect(() => assertIsSingleDigitNumber(5)).not.toThrow()
+ * expect(() => assertIsSingleDigitNumber(10)).toThrow("Value 10 is not a single digit integer")
+ * ```
  */
 export function assertIsSingleDigitNumber(num: unknown): asserts num is number {
   if (typeof num !== "number" || !Number.isInteger(num) || num < 0 || num > 9) {
@@ -195,8 +215,10 @@ export function assertIsSingleDigitNumber(num: unknown): asserts num is number {
  * @param {unknown} x - The value to check.
  * @throws {Error} If the value is null.
  * @example
- * assertIsNotNull(5) // Does not throw
- * assertIsNotNull(null) // Throws Error: Value is null
+ * ```ts @import.meta.vitest
+ * expect(() => assertIsNotNull(5)).not.toThrow()
+ * expect(() => assertIsNotNull(null)).toThrow("Value is null")
+ * ```
  */
 export function assertIsNotNull(
   x: unknown,
@@ -211,7 +233,9 @@ export function assertIsNotNull(
  *
  * @throws {Error} Always throws an error indicating the feature is not implemented.
  * @example
- * notImplemented() // Throws Error: Not yet implemented
+ * ```ts @import.meta.vitest
+ * expect(() => notImplemented()).toThrow("Not yet implemented")
+ * ```
  */
 export function notImplemented(): never {
   throw new Error("Not yet implemented");
@@ -224,8 +248,10 @@ export function notImplemented(): never {
  * @returns {Big} The multiplier for the given decimal place.
  * @throws {Error} If the input is not a positive integer.
  * @example
- * decimalPlaceToMultiplier(2) // Returns Big(0.01)
- * decimalPlaceToMultiplier(0) // Throws Error: Decimal place must be a positive integer
+ * ```ts @import.meta.vitest
+ * expect(decimalPlaceToMultiplier(2)).toStrictEqual(Big(0.01))
+ * expect(() => decimalPlaceToMultiplier(0)).toThrow("Decimal place must be a positive integer")
+ * ```
  */
 export function decimalPlaceToMultiplier(decimalPlace: number): Big {
   if (decimalPlace < 1 || !Number.isInteger(decimalPlace)) {
@@ -236,6 +262,13 @@ export function decimalPlaceToMultiplier(decimalPlace: number): Big {
 
 /**
  * Represents a basic calculator with arithmetic operations.
+ *
+ * @example
+ * ```ts @import.meta.vitest
+ * const calc = new Calculator()
+ * calc.pressNumberButton(5)
+ * expect(calc.getCurrentInputNumber()).toStrictEqual(Big(5))
+ * ```
  */
 export class Calculator {
   private accumulator: Big | "Infinity" | null = null;
@@ -251,8 +284,10 @@ export class Calculator {
    *
    * @returns {Big | "Infinity" | null} The current accumulator value.
    * @example
-   * const calc = new Calculator();
-   * calc.getAccumulator() // Returns null
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * expect(calc.getAccumulator()).toBeNull()
+   * ```
    */
   public getAccumulator(): Big | "Infinity" | null {
     return this.accumulator;
@@ -261,10 +296,12 @@ export class Calculator {
   /**
    * Get the next operator to be applied.
    *
-   * @returns {Operator | null} The next operator or null if not set.
+   * @returns {Operator | null} The next operator or null if it isn't set.
    * @example
-   * const calc = new Calculator();
-   * calc.getNextOperator() // Returns null
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * expect(calc.getNextOperator()).toBeNull()
+   * ```
    */
   public getNextOperator(): Operator | null {
     return this.nextOperator;
@@ -276,8 +313,11 @@ export class Calculator {
    * @param {unknown} n - The number pressed.
    * @throws {Error} If the input is not a single-digit number.
    * @example
-   * const calc = new Calculator();
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
    * calc.pressNumberButton(5)
+   * expect(calc.getCurrentInputNumber()).toStrictEqual(Big(5))
+   * ```
    */
   public pressNumberButton(n: unknown): void {
     assertIsSingleDigitNumber(n);
@@ -292,8 +332,8 @@ export class Calculator {
       // There is already a current input number, so further digits just go
       // on the end.
 
-      // Depending on whether "decimal" button has been pressed, this changes
-      //  how the new digit gets added onto the existing user input number.
+      // Depending on whether the "decimal" button has been pressed, this
+      // changes how the new digit gets added onto the existing user input number.
 
       if (this.decimalButtonPressed) {
         assertIsNotNull(this.nextDecimalPlace);
@@ -324,8 +364,11 @@ export class Calculator {
    * @param {unknown} n - The operator pressed.
    * @throws {Error} If the input is not a valid operator.
    * @example
-   * const calc = new Calculator();
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
    * calc.pressOperatorButton("+")
+   * expect(calc.getNextOperator()).toBe("+")
+   * ```
    */
   public pressOperatorButton(n: unknown): void {
     const op: Operator = parseOperator(n);
@@ -343,10 +386,6 @@ export class Calculator {
    *
    * @param {Operator | null} currentOperator - The current operator to apply.
    * @private
-   * @example
-   * // Assuming this.accumulator is 5 and this.currentInputNumber is 3
-   * this.applyCurrentOperator('+');
-   * // this.accumulator is now 8
    */
   private applyCurrentOperator(currentOperator: Operator | null): void {
     if (
@@ -367,10 +406,6 @@ export class Calculator {
    * Update the accumulator with the current input number if needed.
    *
    * @private
-   * @example
-   * // Assuming this.accumulator is null and this.currentInputNumber is 5
-   * this.updateAccumulatorIfNeeded();
-   * // this.accumulator is now 5
    */
   private updateAccumulatorIfNeeded(): void {
     if (this.accumulator === null && this.currentInputNumber !== null) {
@@ -383,8 +418,10 @@ export class Calculator {
    *
    * @returns {Big | null} The current input number or null if not set.
    * @example
-   * const calc = new Calculator();
-   * calc.getCurrentInputNumber() // Returns null
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * expect(calc.getCurrentInputNumber()).toBeNull()
+   * ```
    */
   public getCurrentInputNumber(): Big | null {
     return this.currentInputNumber;
@@ -392,16 +429,15 @@ export class Calculator {
 
   /**
    * Simulates pressing the equals button on the calculator.
-   * This method applies any pending operation, updates the accumulator if needed,
-   * and resets the calculator state for the next operation.
-   *
    * @example
-   * const calc = new Calculator();
-   * calc.pressNumberButton(5);
-   * calc.pressOperatorButton("+");
-   * calc.pressNumberButton(3);
-   * calc.pressEqualsButton();
-   * // The display now shows "8"
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressNumberButton(5)
+   * calc.pressOperatorButton("+")
+   * calc.pressNumberButton(3)
+   * calc.pressEqualsButton()
+   * expect(calc.getAccumulator()).toStrictEqual(Big(8))
+   * ```
    */
   public pressEqualsButton(): void {
     this.applyPendingOperation();
@@ -413,10 +449,6 @@ export class Calculator {
    * Apply the pending operation to the accumulator and current input number.
    *
    * @private
-   * @example
-   * // Assuming this.accumulator is 5, this.nextOperator is '+', and this.currentInputNumber is 3
-   * this.applyPendingOperation();
-   * // this.accumulator is now 8
    */
   private applyPendingOperation(): void {
     if (
@@ -436,14 +468,11 @@ export class Calculator {
 
   /**
    * Calculates the result of an operation between two numbers.
+   *
    * @param {Operator} op - The operator to use for the calculation.
    * @param {Big | "Infinity"} acc - The accumulator value.
    * @param {Big} input - The input value.
    * @returns {Big | "Infinity"} The result of the calculation.
-   * @example
-   * const calc = new Calculator();
-   * const result = calc.calculateResult("+", Big(5), Big(3));
-   * // result is Big(8)
    */
   private calculateResult(
     op: Operator,
@@ -457,12 +486,9 @@ export class Calculator {
   }
 
   /**
-   * Resets the calculator state to its initial values.
-   * @example
-   * const calc = new Calculator();
-   * calc.pressKeys("123+456");
-   * calc.resetCalculatorState();
-   * // Calculator state is now reset
+   * Resets the input number state of the calculator.
+   *
+   * @private
    */
   private resetCalculatorState(): void {
     this.resetInputNumberState();
@@ -472,9 +498,11 @@ export class Calculator {
   /**
    * Simulates pressing the decimal button on the calculator.
    * @example
-   * const calc = new Calculator();
-   * calc.pressDecimalButton();
-   * // Decimal button is now pressed
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressDecimalButton()
+   * expect(calc.getDecimalButtonPressed()).toBe(true)
+   * ```
    */
   public pressDecimalButton(): void {
     if (!this.decimalButtonPressed) {
@@ -487,10 +515,12 @@ export class Calculator {
    * Gets the current state of the decimal button.
    * @returns {boolean} True if the decimal button is pressed, false otherwise.
    * @example
-   * const calc = new Calculator();
-   * calc.pressDecimalButton();
-   * const isDecimalPressed = calc.getDecimalButtonPressed();
-   * // isDecimalPressed is true
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * expect(calc.getDecimalButtonPressed()).toBe(false)
+   * calc.pressDecimalButton()
+   * expect(calc.getDecimalButtonPressed()).toBe(true)
+   * ```
    */
   public getDecimalButtonPressed(): boolean {
     return this.decimalButtonPressed;
@@ -500,11 +530,12 @@ export class Calculator {
    * Gets the next decimal place to be used.
    * @returns {number | null} The next decimal place or null if not set.
    * @example
-   * const calc = new Calculator();
-   * calc.pressDecimalButton();
-   * calc.pressNumberButton(5);
-   * const nextDecimalPlace = calc.getNextDecimalPlace();
-   * // nextDecimalPlace is 2
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * expect(calc.getNextDecimalPlace()).toBeNull()
+   * calc.pressDecimalButton()
+   * expect(calc.getNextDecimalPlace()).toBe(1)
+   * ```
    */
   public getNextDecimalPlace(): number | null {
     return this.nextDecimalPlace;
@@ -514,9 +545,11 @@ export class Calculator {
    * Sets the next decimal place. This method is unsafe and should be used with caution.
    * @param {number | null} n - The value to set for the next decimal place.
    * @example
-   * const calc = new Calculator();
-   * calc.unsafeSetNextDecimalPlace(3);
-   * // Next decimal place is now set to 3
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.unsafeSetNextDecimalPlace(3)
+   * expect(calc.getNextDecimalPlace()).toBe(3)
+   * ```
    */
   public unsafeSetNextDecimalPlace(n: number | null): void {
     this.nextDecimalPlace = n;
@@ -526,10 +559,13 @@ export class Calculator {
    * Gets the current display string of the calculator.
    * @returns {string} The current display string.
    * @example
-   * const calc = new Calculator();
-   * calc.pressKeys("123.45");
-   * const display = calc.getDisplayString();
-   * // display is "123.45"
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressNumberButton(1)
+   * calc.pressNumberButton(2)
+   * calc.pressNumberButton(3)
+   * expect(calc.getDisplayString()).toBe("123")
+   * ```
    */
   public getDisplayString(): string {
     if (this.currentInputNumber !== null) {
@@ -551,10 +587,13 @@ export class Calculator {
   /**
    * Simulates pressing the clear button on the calculator.
    * @example
-   * const calc = new Calculator();
-   * calc.pressKeys("123+456");
-   * calc.pressClearButton();
-   * // Calculator is now cleared
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressNumberButton(5)
+   * calc.pressClearButton()
+   * expect(calc.getAccumulator()).toBeNull()
+   * expect(calc.getCurrentInputNumber()).toBeNull()
+   * ```
    */
   public pressClearButton(): void {
     this.accumulator = null;
@@ -565,10 +604,13 @@ export class Calculator {
   /**
    * Simulates pressing the backspace button on the calculator.
    * @example
-   * const calc = new Calculator();
-   * calc.pressKeys("123");
-   * calc.pressBackspaceButton();
-   * // Display now shows "12"
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressNumberButton(1)
+   * calc.pressNumberButton(2)
+   * calc.pressBackspaceButton()
+   * expect(calc.getCurrentInputNumber()).toStrictEqual(Big(1))
+   * ```
    */
   public pressBackspaceButton(): void {
     if (this.currentInputNumber === null) {
@@ -586,10 +628,6 @@ export class Calculator {
    * Handles backspace operation for decimal numbers.
    *
    * @private
-   * @example
-   * // Assuming this.currentInputNumber is 1.23 and this.nextDecimalPlace is 3
-   * this.handleDecimalBackspace();
-   * // this.currentInputNumber is now 1.2 and this.nextDecimalPlace is 2
    */
   private handleDecimalBackspace(): void {
     assertIsNotNull(this.nextDecimalPlace);
@@ -615,10 +653,6 @@ export class Calculator {
    * Removes the last decimal place from the current input number.
    *
    * @private
-   * @example
-   * // Assuming this.currentInputNumber is 1.23 and this.nextDecimalPlace is 3
-   * this.removeLastDecimalPlace();
-   * // this.currentInputNumber is now 1.2 and this.nextDecimalPlace is 2
    */
   private removeLastDecimalPlace(): void {
     assertIsNotNull(this.nextDecimalPlace);
@@ -631,10 +665,6 @@ export class Calculator {
    * Removes the decimal point from the current input number.
    *
    * @private
-   * @example
-   * // Assuming this.currentInputNumber is 1.2, this.decimalButtonPressed is true, and this.nextDecimalPlace is 1
-   * this.removeDecimalPoint();
-   * // this.decimalButtonPressed is now false and this.nextDecimalPlace is null
    */
   private removeDecimalPoint(): void {
     this.decimalButtonPressed = false;
@@ -645,10 +675,6 @@ export class Calculator {
    * Handles backspace operation for whole numbers.
    *
    * @private
-   * @example
-   * // Assuming this.currentInputNumber is 123
-   * this.handleWholeNumberBackspace();
-   * // this.currentInputNumber is now 12
    */
   private handleWholeNumberBackspace(): void {
     this.currentInputNumber = this.currentInputNumber!.div(10).round(0, 0);
@@ -660,41 +686,29 @@ export class Calculator {
      * Handles the equals key press.
      *
      * @returns {void}
-     * @example
-     * this.keyHandlers["="]();
-     * // Equivalent to this.pressEqualsButton()
      */
-    "=": () => this.pressEqualsButton(),
+    "=": (): void => this.pressEqualsButton(),
 
     /**
      * Handles the Enter key press.
      *
      * @returns {void}
-     * @example
-     * this.keyHandlers["Enter"]();
-     * // Equivalent to this.pressEqualsButton()
      */
-    Enter: () => this.pressEqualsButton(),
+    Enter: (): void => this.pressEqualsButton(),
 
     /**
      * Handles the Backspace key press.
      *
      * @returns {void}
-     * @example
-     * this.keyHandlers["Backspace"]();
-     * // Equivalent to this.pressBackspaceButton()
      */
-    Backspace: () => this.pressBackspaceButton(),
+    Backspace: (): void => this.pressBackspaceButton(),
 
     /**
      * Handles the decimal point key press.
      *
      * @returns {void}
-     * @example
-     * this.keyHandlers["."]();
-     * // Equivalent to this.pressDecimalButton()
      */
-    ".": () => this.pressDecimalButton(),
+    ".": (): void => this.pressDecimalButton(),
   };
 
   /**
@@ -702,12 +716,14 @@ export class Calculator {
    * @param {unknown} s - The key to press.
    * @throws {Error} If the input is not a string or is an invalid key.
    * @example
-   * const calc = new Calculator();
-   * calc.pressKey("5");
-   * calc.pressKey("+");
-   * calc.pressKey("3");
-   * calc.pressKey("=");
-   * // Display now shows "8"
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressKey("5")
+   * calc.pressKey("+")
+   * calc.pressKey("3")
+   * calc.pressKey("=")
+   * expect(calc.getAccumulator()).toStrictEqual(Big(8))
+   * ```
    */
   public pressKey(s: unknown): void {
     if (typeof s !== "string") {
@@ -739,9 +755,11 @@ export class Calculator {
    * @param {unknown} s - The string of keys to press.
    * @throws {Error} If the input is not a string.
    * @example
-   * const calc = new Calculator();
-   * calc.pressKeys("5+3=");
-   * // Display now shows "8"
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.pressKeys("5+3=")
+   * expect(calc.getAccumulator()).toStrictEqual(Big(8))
+   * ```
    */
   public pressKeys(s: unknown): void {
     if (typeof s !== "string") {
@@ -756,10 +774,6 @@ export class Calculator {
    * Resets the input number state of the calculator.
    *
    * @private
-   * @example
-   * // Assuming this.currentInputNumber is 123, this.decimalButtonPressed is true, and this.nextDecimalPlace is 2
-   * this.resetInputNumberState();
-   * // this.currentInputNumber is now null, this.decimalButtonPressed is false, and this.nextDecimalPlace is null
    */
   private resetInputNumberState(): void {
     this.currentInputNumber = null;
@@ -772,12 +786,14 @@ export class Calculator {
    * @param {string} s - The button pressed.
    * @throws {Error} If an invalid button is pressed.
    * @example
-   * const calc = new Calculator();
-   * calc.handleUiButtonPressed("1");
-   * calc.handleUiButtonPressed("+");
-   * calc.handleUiButtonPressed("2");
-   * calc.handleUiButtonPressed("=");
-   * // Display now shows "3"
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * calc.handleUiButtonPressed("1")
+   * calc.handleUiButtonPressed("+")
+   * calc.handleUiButtonPressed("2")
+   * calc.handleUiButtonPressed("=")
+   * expect(calc.getAccumulator()).toStrictEqual(Big(3))
+   * ```
    */
   public handleUiButtonPressed(s: string): void {
     if (isDigit(s)) {
