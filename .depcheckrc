@@ -17,7 +17,8 @@
     "@awmottaz/prettier-plugin-void-html",
     "prettier-plugin-organize-imports",
     "@typescript-eslint/eslint-plugin",
-    "@vitest/coverage-v8"
+    "@vitest/coverage-v8",
+    "start-server-and-test",
   ],
   "specials": [
     "webpack",
