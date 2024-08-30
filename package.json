@@ -9,6 +9,7 @@
     "build": "webpack --mode production --config webpack.config.mjs",
     "test": "pnpm run test:unit",
     "test:unit": "vitest run --silent=false",
+    "test:unit:debug": "NODE_DEBUG=module pnpm run test:unit",
     "test:unit:coverage": "pnpm run test:unit --coverage",
     "test:unit:watch": "vitest",
     "serve": "http-server",
