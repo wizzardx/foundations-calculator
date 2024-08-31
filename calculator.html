@@ -65,6 +65,12 @@
           updateDisplay();
         }
       });
+
+      document.addEventListener("keydown", (event) => {
+        const key = event.key;
+        calculator.pressKey(key);
+        updateDisplay();
+      });
     </script>
   </body>
 </html>

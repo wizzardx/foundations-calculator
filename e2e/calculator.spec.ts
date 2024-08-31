@@ -161,3 +161,22 @@ test("Decimal button is disabled after pressing it once.", async ({ page }) => {
   await buttonDecimal.click();
   await expect(buttonDecimal).toBeDisabled();
 });
+
+test("Typing in the web browser can make maths happen", async ({ page }) => {
+  await setupPage(page);
+
+  const answerSpan = page.locator("#answer");
+  await page.keyboard.type("3+5=");
+  await expect(answerSpan).toHaveText("8");
+});
+
+test("Pressing backspace in the browser erases the last number", async ({
+  page,
+}) => {
+  await setupPage(page);
+
+  const answerSpan = page.locator("#answer");
+  await page.keyboard.type("1234");
+  await page.keyboard.press("Backspace");
+  await expect(answerSpan).toHaveText("123");
+});
