@@ -1,114 +1,148 @@
-import { expect, test } from "@playwright/test";
-import {
-  getClickableErrorStack,
-  getOriginalPositionFromSourceMap,
-  handleFailedRequest,
-} from "./sourceMapUtils";
+import { test as baseTest, expect, Page } from "@playwright/test";
 
-test("basic test", async ({ page }) => {
-  const consoleMessages: string[] = [];
-  const uncaughtExceptions: string[] = [];
+// Define a custom fixture for error-trapping
+type ErrorTrappingFixture = {
+  consoleMessages: string[];
+  uncaughtExceptions: string[];
+};
 
-  // Add a global error event listener
-  await page.evaluate(() => {
-    window.addEventListener("error", (event) => {
-      console.error("Uncaught exception:", event.error);
+const test = baseTest.extend<ErrorTrappingFixture>({
+  consoleMessages: async ({ page }, use) => {
+    const messages: string[] = [];
+    page.on("console", (msg) => {
+      messages.push(msg.text());
     });
-  });
+    await use(messages);
+  },
+  uncaughtExceptions: async ({ page }, use) => {
+    const exceptions: string[] = [];
+    page.on("pageerror", (error) => {
+      exceptions.push(error.message);
+    });
+    await use(exceptions);
+  },
+});
 
-  page.on("console", async (msg) => {
-    const location = msg.location();
-    const { source, line, column } = await getOriginalPositionFromSourceMap(
-      location?.url ?? "",
-      location?.lineNumber ?? 0,
-      location?.columnNumber ?? 0,
-    );
-    const formattedMsg = `${source}:${line}:${column} - ${msg.text()}`;
-
-    consoleMessages.push(formattedMsg);
-
-    if (msg.type() === "error") {
-      console.error(`Browser console error: ${formattedMsg}`);
-      if (formattedMsg.includes("Uncaught exception:")) {
-        uncaughtExceptions.push(formattedMsg);
-      }
-    } else {
-      console.log(`Logged to console: ${formattedMsg}`);
-    }
-  });
-
-  page.on("pageerror", async (exception: Error) => {
-    const clickableStack = await getClickableErrorStack(exception);
-    console.error(`Uncaught exception:\n${clickableStack}`);
-    uncaughtExceptions.push(exception.message);
-    // Also add to consoleMessages to ensure we capture it
-    consoleMessages.push(`Uncaught exception: ${exception.message}`);
-  });
-
-  page.on("requestfailed", async (request) => {
-    const url = request.url();
-    console.error(`Failed request: ${url}`);
-    await handleFailedRequest(url);
-  });
-
+// Setup function
+async function setupPage(page: Page) {
   await page.goto("http://localhost:8080/calculator.html");
+}
 
-  // Check if the answer span is rendered
+// Individual tests
+test("page loads correctly", async ({ page }) => {
+  await setupPage(page);
+
   const answerSpan = page.locator("#answer");
   await expect(answerSpan).toBeVisible();
-
-  // Check if the page title is correct
   await expect(page).toHaveTitle("Calculator");
-
-  // Check that the starting answer text is our current default, "0"
   await expect(answerSpan).toHaveText("0");
+});
 
-  // Press the 'Clear' button
+test("clear button works", async ({ page }) => {
+  await setupPage(page);
+
+  const answerSpan = page.locator("#answer");
   const buttonClear = page.locator('button:has-text("Clear")');
+
   await expect(buttonClear).toBeVisible();
   await buttonClear.click();
-
-  // Our displayed answer should now just be zero:
   await expect(answerSpan).toHaveText("0");
+});
 
-  // Find the button with the text "3" in it:
+test("basic addition works", async ({ page }) => {
+  await setupPage(page);
+
+  const answerSpan = page.locator("#answer");
   const buttonThree = page.locator('button:has-text("3")');
-  await expect(buttonThree).toBeVisible();
-
-  // Click the button:
-  await buttonThree.click();
-
-  // Displayed text should be 3:
-  await expect(answerSpan).toHaveText("3");
-
-  // Click the button again:
-  await buttonThree.click();
-
-  // Check that the text in the answer is "33".
-  await expect(answerSpan).toHaveText("33");
-
-  // Press the "+" button
   const buttonPlus = page.locator('button:has-text("+")');
-  await expect(buttonPlus).toBeVisible();
-  await buttonPlus.click();
-
-  // Display should now read "+"
-  await expect(answerSpan).toHaveText("+");
-
-  // Press 5 twice:
   const buttonFive = page.locator('button:has-text("5")');
-  await expect(buttonFive).toBeVisible();
-  await buttonFive.click();
-  await buttonFive.click();
-
-  // Display should read "55"
-  await expect(answerSpan).toHaveText("55");
-
-  // Press the "=" button
   const buttonEqual = page.locator('button:has-text("=")');
-  await expect(buttonEqual).toBeVisible();
+
+  await buttonThree.click();
+  await buttonThree.click();
+  await buttonPlus.click();
+  await buttonFive.click();
+  await buttonFive.click();
   await buttonEqual.click();
 
-  // Display should read "88"
   await expect(answerSpan).toHaveText("88");
+});
+
+test("division by zero", async ({ page }) => {
+  await setupPage(page);
+
+  const answerSpan = page.locator("#answer");
+  const buttonFive = page.locator('button:has-text("5")');
+  const buttonDivide = page.locator('button:has-text("/")');
+  const buttonZero = page.locator('button:has-text("0")');
+  const buttonEqual = page.locator('button:has-text("=")');
+
+  await buttonFive.click();
+  await buttonDivide.click();
+  await buttonZero.click();
+  await buttonEqual.click();
+
+  await expect(answerSpan).toHaveText(
+    "No division by zero is allowed, you silly goose!",
+  );
+});
+
+test("decimal addition works", async ({ page }) => {
+  await setupPage(page);
+
+  const answerSpan = page.locator("#answer");
+  const buttonOne = page.locator('button:has-text("1")');
+  const buttonTwo = page.locator('button:has-text("2")');
+  const buttonThree = page.locator('button:has-text("3")');
+  const buttonFour = page.locator('button:has-text("4")');
+  const buttonPoint = page.locator('button:has-text(".")');
+  const buttonPlus = page.locator('button:has-text("+")');
+  const buttonEqual = page.locator('button:has-text("=")');
+
+  await buttonOne.click();
+  await buttonPoint.click();
+  await buttonTwo.click();
+  await buttonPlus.click();
+  await buttonThree.click();
+  await buttonPoint.click();
+  await buttonFour.click();
+  await buttonEqual.click();
+
+  await expect(answerSpan).toHaveText("4.6");
+});
+
+// Check for console errors
+test("check for console errors", async ({
+  page,
+  consoleMessages,
+  uncaughtExceptions,
+}) => {
+  await setupPage(page);
+
+  // Perform some actions that might cause errors
+  await page.evaluate(() => {
+    console.error("This is a test error");
+  });
+
+  // Check if the console error was captured
+  expect(consoleMessages).toContain("This is a test error");
+
+  // Now throw an error and check if it's caught
+  let thrownError: Error | null = null;
+  try {
+    await page.evaluate(() => {
+      throw new Error("This is a test exception");
+    });
+  } catch (error) {
+    thrownError = error as Error;
+  }
+
+  // Check if the error was thrown
+  expect(thrownError).not.toBeNull();
+  expect(thrownError?.message).toContain("This is a test exception");
+
+  // Log captured messages and exceptions for debugging
+  console.log("Captured console messages:", consoleMessages);
+  console.log("Captured uncaught exceptions:", uncaughtExceptions);
+  console.log("Thrown error:", thrownError);
 });

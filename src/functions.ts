@@ -273,6 +273,29 @@ export function decimalPlaceToMultiplier(decimalPlace: number): Big {
  */
 export class Calculator {
   accumulator: Big | "Infinity" | null = null;
+  // Map of UI button handlers
+  buttonHandlers: { [key: string]: () => void } = {
+    /**
+     * Handles the decimal point button press.
+     * @returns {void}
+     */
+    ".": (): void => this.pressDecimalButton(),
+    /**
+     * Handles the "equals" button press.
+     * @returns {void}
+     */
+    "=": (): void => this.pressEqualsButton(),
+    /**
+     * Handles the backspace button press.
+     * @returns {void}
+     */
+    Backspace: (): void => this.pressBackspaceButton(),
+    /**
+     * Handles the clear button press.
+     * @returns {void}
+     */
+    Clear: (): void => this.pressClearButton(),
+  };
   // State relating to the current input number:
   currentInputNumber: Big | null = null;
   decimalButtonPressed: boolean = false;
@@ -507,12 +530,13 @@ export class Calculator {
       this.pressNumberButton(Number(s));
     } else if (isOperator(s)) {
       this.pressOperatorButton(s);
-    } else if (s === "Clear") {
-      this.pressClearButton();
-    } else if (s === "=") {
-      this.pressEqualsButton();
     } else {
-      throw new Error(`Invalid button: ${s}`);
+      const handler: (() => void) | undefined = this.buttonHandlers[s];
+      if (handler !== undefined) {
+        handler();
+      } else {
+        throw new Error(`Invalid button: ${s}`);
+      }
     }
   }
   /**

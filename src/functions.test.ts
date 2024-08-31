@@ -1151,6 +1151,21 @@ describe("Calculator class", () => {
       expect(calc.getDecimalButtonPressed()).toBe(false);
       expect(calc.getNextDecimalPlace()).toBe(null);
     });
+
+    it("handles backspace", () => {
+      const calc = new Calculator();
+      calc.pressKeys("12345");
+      calc.handleUiButtonPressed("Backspace");
+      expect(calc.getDisplayString()).toBe("1234");
+    });
+
+    it("handles the decimal point button", () => {
+      const calc = new Calculator();
+      calc.handleUiButtonPressed("5");
+      calc.handleUiButtonPressed(".");
+      calc.handleUiButtonPressed("3");
+      expect(calc.getDisplayString()).toBe("5.3");
+    });
   });
 
   it("Presses = on the calculator when the '=' UI button is pressed", () => {
