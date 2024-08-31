@@ -273,6 +273,7 @@ export function decimalPlaceToMultiplier(decimalPlace: number): Big {
  */
 export class Calculator {
   accumulator: Big | "Infinity" | null = null;
+
   // Map of UI button handlers
   buttonHandlers: { [key: string]: () => void } = {
     /**
@@ -296,9 +297,11 @@ export class Calculator {
      */
     Clear: (): void => this.pressClearButton(),
   };
+
   // State relating to the current input number:
   currentInputNumber: Big | null = null;
   decimalButtonPressed: boolean = false;
+
   // Map of special key handlers
   keyHandlers: { [key: string]: () => void } = {
     /**
@@ -329,6 +332,7 @@ export class Calculator {
      */
     Enter: (): void => this.pressEqualsButton(),
   };
+
   nextDecimalPlace: number | null = null;
   nextOperator: Operator | null = null;
 
@@ -511,6 +515,7 @@ export class Calculator {
       );
     }
   }
+
   /**
    * Handles UI button presses on the calculator.
    * @param {string} s - The button pressed.
