@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig = {
   reporter: [["html"], ["list"]],
   retries: process.env.CI === "true" ? 2 : 1,
   testDir: "./e2e",
-  timeout: 30000,
+  timeout: 2000,
   use: {
     screenshot: "only-on-failure",
     trace: "on-first-retry",
