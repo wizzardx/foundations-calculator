@@ -552,6 +552,21 @@ export class Calculator {
   private handleWholeNumberBackspace(): void {
     this.currentInputNumber = this.currentInputNumber!.div(10).round(0, 0);
   }
+
+  /**
+   * Return true if the Decimal button should be currently disabled ion the UI.
+   * @returns {boolean} - True if the Decimal button should be disabled, otherwise false.
+   *
+   * @example
+   * ```ts @import.meta.vitest
+   * const calc = new Calculator()
+   * expect(calc.isDecimalButtonDisabledInUi()).toBe(false)
+   * ```
+   */
+  public isDecimalButtonDisabledInUi(): boolean {
+    return this.decimalButtonPressed;
+  }
+
   /**
    * Simulates pressing the backspace button on the calculator.
    * @example

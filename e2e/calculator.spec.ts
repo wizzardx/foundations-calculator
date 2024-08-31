@@ -146,3 +146,18 @@ test("check for console errors", async ({
   console.log("Captured uncaught exceptions:", uncaughtExceptions);
   console.log("Thrown error:", thrownError);
 });
+
+test("Decimal button is not disabled by default", async ({ page }) => {
+  await setupPage(page);
+
+  const buttonDecimal = page.locator('button:has-text(".")');
+  await expect(buttonDecimal).not.toBeDisabled();
+});
+
+test("Decimal button is disabled after pressing it once.", async ({ page }) => {
+  await setupPage(page);
+
+  const buttonDecimal = page.locator('button:has-text(".")');
+  await buttonDecimal.click();
+  await expect(buttonDecimal).toBeDisabled();
+});

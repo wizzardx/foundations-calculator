@@ -35,7 +35,7 @@
       </div>
       <div class="row">
         <button>0</button>
-        <button>.</button>
+        <button id="decimal-button">.</button>
         <button>/</button>
         <button>=</button>
       </div>
@@ -49,9 +49,11 @@
 
       const buttons = document.querySelector("#buttons");
       const answerSpan = document.querySelector("#answer");
+      const decimalButton = document.querySelector("#decimal-button");
 
       function updateDisplay() {
         answerSpan.innerText = calculator.getDisplayString();
+        decimalButton.disabled = calculator.isDecimalButtonDisabledInUi();
       }
 
       updateDisplay();

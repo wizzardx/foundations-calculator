@@ -434,6 +434,19 @@ describe("Calculator class", () => {
     });
   });
 
+  describe("isDecimalButtonDisabledInUi method", () => {
+    test("button is enabled when decimal button has not been pressed yet", () => {
+      const calc = new Calculator();
+      expect(calc.isDecimalButtonDisabledInUi()).toBe(false);
+    });
+
+    test("button is disabled when decimal button has been pressed", () => {
+      const calc = new Calculator();
+      calc.pressDecimalButton();
+      expect(calc.isDecimalButtonDisabledInUi()).toBe(true);
+    });
+  });
+
   describe("getDecimalButtonPressed method", () => {
     test("Before pressing the decimal point button, it should be recorded as not yet pressed", () => {
       const calc = new Calculator();
