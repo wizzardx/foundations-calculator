@@ -12,7 +12,7 @@
     "test:unit:debug": "NODE_DEBUG=module pnpm run test:unit",
     "test:unit:coverage": "pnpm run test:unit --coverage",
     "test:unit:watch": "vitest",
-    "serve": "http-server",
+    "serve": "pnpm run build && http-server",
     "pretest:e2e": "pnpm run build",
     "test:e2e": "start-server-and-test serve http://localhost:8080 'PW_TEST_HTML_REPORT_OPEN=never playwright test'",
     "test:e2e:watch": "start-server-and-test serve http://localhost:8080 'nodemon --watch src --watch e2e --watch calculator.html --ext js,ts,html --exec \"clear; PW_TEST_HTML_REPORT_OPEN=never playwright test\"'",
