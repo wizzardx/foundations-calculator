@@ -1,18 +1,15 @@
-import { PlaywrightTestConfig, devices } from "@playwright/test";
+/**
+ * @file Playwright test configuration for end-to-end testing.
+ * @description This file contains the configuration for running Playwright tests,
+ * including settings for test directories, timeouts, retries, and browser projects.
+ */
+
 import os from "os";
 
+import { devices, PlaywrightTestConfig } from "@playwright/test";
+
 const config: PlaywrightTestConfig = {
-  testDir: "./e2e",
-  timeout: 30000,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
-  workers: process.env.CI ? 1 : Math.max(2, Math.floor(os.cpus().length / 2)),
-  reporter: [["html"], ["list"]],
-  use: {
-    trace: "on-first-retry",
-    screenshot: "only-on-failure",
-    video: "on-first-retry",
-  },
+  forbidOnly: process.env.CI === "true",
   projects: [
     {
       name: "chromium",
@@ -27,6 +24,19 @@ const config: PlaywrightTestConfig = {
       use: { ...devices["Desktop Safari"] },
     },
   ],
+  reporter: [["html"], ["list"]],
+  retries: process.env.CI === "true" ? 2 : 1,
+  testDir: "./e2e",
+  timeout: 30000,
+  use: {
+    screenshot: "only-on-failure",
+    trace: "on-first-retry",
+    video: "on-first-retry",
+  },
+  workers:
+    process.env.CI === "true"
+      ? 1
+      : Math.max(2, Math.floor(os.cpus().length / 2)),
 };
 
 export default config;
