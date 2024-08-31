@@ -27,7 +27,7 @@ pnpm run format
 # Run the The Nu Html Checker (v.Nu) against the html file.
 # Also run checks for something (trailing void element slashes) that comes up
 # on the W3C HTML web ui but not in the command-line version of v.Nu.
-python scripts/html_comprehensive_validator.py calculator.html
+python scripts/html_comprehensive_validator.py index.html
 
 pnpm run build
 pnpm run security-check

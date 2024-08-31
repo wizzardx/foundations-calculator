@@ -6,3 +6,12 @@ sonarqube_data/
 test-results/
 playwright-report/
 .idea/
+dist/e2e
+dist/bundle.js.map
+dist/playwright.config.js
+dist/playwright.config.js.map
+dist/src/
+dist/tsconfig.tsbuildinfo
+dist/vitest.config.js
+dist/vitest.config.js.map
+

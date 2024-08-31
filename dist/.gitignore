@@ -1,8 +1,0 @@
-bundle.js.map
-tsconfig.tsbuildinfo
-e2e
-playwright.config.js
-playwright.config.js.map
-src/
-vitest.config.js
-vitest.config.js.map

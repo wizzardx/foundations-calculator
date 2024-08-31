@@ -25,7 +25,7 @@ const test = baseTest.extend<ErrorTrappingFixture>({
 
 // Setup function
 async function setupPage(page: Page) {
-  await page.goto("http://localhost:8080/calculator.html");
+  await page.goto("http://localhost:8080/");
 }
 
 // Individual tests
