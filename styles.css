@@ -1,10 +1,9 @@
-
 button.keypad-button {
-    background-color: green
+  background-color: green;
 }
 button.operation-button {
-    background-color: orange
+  background-color: orange;
 }
 button.special-button {
-    background-color: #1f6feb;
+  background-color: #1f6feb;
 }
